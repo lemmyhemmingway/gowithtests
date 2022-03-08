@@ -7,6 +7,9 @@ import (
 
 func TestCountdown(t *testing.T) {
 	buffer := &bytes.Buffer{}
+	spySleeper := &SpySleeper{}
+
+	Countdown(buffer, spySleeper)
 
 	Countdown(buffer)
 
@@ -18,6 +21,9 @@ Go!`
 
 	if got != want {
 		t.Errorf("got %q want %q", got, want)
+	}
 
+	if spySleeper.Calls != 4 {
+		t.Errorf("not enough calls to sleep")
 	}
 }
